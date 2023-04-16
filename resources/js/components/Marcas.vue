@@ -192,19 +192,6 @@
     
     <script>
         export default {
-            computed: {
-                    token() {
-
-                        let t = document.cookie.split(';').find(indice => {
-                            return indice.includes('token=')
-                        })
-
-                        t = t.split('=')[1]
-                        t = 'Bearer ' + t
-
-                        return t
-                    }
-            },
             data() {
                 return {
                     urlBase: 'http://localhost:8000/api/v1/marca',
@@ -234,9 +221,7 @@
 
                     let config = {
                         headers: {
-                            'Content-Type': 'multipart/form-data',
-                            'Accept': 'application/json',
-                            'Authorization': this.token
+                            'Content-Type': 'multipart/form-data',    
                         }
                     }
 
@@ -262,13 +247,6 @@
                         return false;
                     }
 
-                    let config = {
-                        headers: {
-                            'Accept': 'application/json',
-                            'Authorization': this.token
-                        }
-                    }
-
                     let formData = new FormData();
                     formData.append('_method', 'delete')
 
@@ -281,7 +259,7 @@
                     console.log(this.$store.state.transacao)
 
                     
-                    axios.post(url, formData, config)
+                    axios.post(url, formData)
                         .then(response => {
                             this.$store.state.transacao.status = 'sucesso'
                             this.$store.state.transacao.mensagem = response.data.msg
@@ -356,9 +334,7 @@
 
                     let config = {
                         headers: {
-                            'Content-Type': 'multipart/form-data',
-                            'Accept': 'application/json',
-                            'Authorization': this.t
+                            'Content-Type': 'multipart/form-data'
                         }
                     }
 
